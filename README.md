@@ -78,12 +78,12 @@ All screenshots are stored in the `/screenshots` folder.
 
 ### 📂 2. Upload Documents
 
-![Upload].(screenshots/Saved%201%20more%20file.png)
+![Upload](screenshots/Saved%201%20more%20file.png)
 
 ### 🔄 3. Refresh Vector Index
 
-![Refresh].(screenshots/Manual%20Refresh%20of%20Vectors.png)
-![Refresh].(screenshots/Manual%20Refresh%20Vectors%20Index.png)
+![Refresh](screenshots/Manual%20Refresh%20of%20Vectors.png)
+![Refresh](screenshots/Manual%20Refresh%20Vectors%20Index.png)
 
 ### 📊 4. Query & Answer Output
 
