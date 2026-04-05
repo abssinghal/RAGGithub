@@ -8,12 +8,12 @@ A production-style **Retrieval-Augmented Generation (RAG)** system that enables 
 
 This project implements an end-to-end **RAG pipeline** that allows users to:
 
-- Upload internal documents (PDF, DOCX, CSV, etc.)
-- Automatically process and chunk content
-- Generate embeddings for semantic understanding
-- Store and query vectors using FAISS
-- Ask natural language questions
-- Receive **context-grounded answers with citations**
+* Upload internal documents (PDF, DOCX, CSV, etc.)
+* Automatically process and chunk content
+* Generate embeddings for semantic understanding
+* Store and query vectors using FAISS
+* Ask natural language questions
+* Receive **context-grounded answers with citations**
 
 The system ensures that responses are generated **only from retrieved context**, reducing hallucinations and improving reliability.
 
@@ -21,13 +21,13 @@ The system ensures that responses are generated **only from retrieved context**,
 
 ## 🧩 Problem Statement
 
-Organizations often store large volumes of unstructured data across multiple file formats. Extracting relevant insights manually is:
+Organizations store large volumes of unstructured data across multiple formats. Extracting insights manually is:
 
-- Time-consuming
-- Inefficient
-- Error-prone
+* Time-consuming
+* Inefficient
+* Error-prone
 
-This project solves that by enabling:
+This system enables:
 
 > ⚡ Fast, accurate, and explainable question-answering over internal documents.
 
@@ -36,186 +36,220 @@ This project solves that by enabling:
 ## 🏗️ Architecture
 
 ```text
-            ┌──────────────────────┐
-            │  User Uploads Files  │
-            └──────────┬───────────┘
-                       ▼
-        ┌─────────────────────────────┐
-        │ Document Loader (Multi-type)│
-        └──────────┬──────────────────┘
-                   ▼
-        ┌─────────────────────────────┐
-        │ Text Chunking (Recursive)   │
-        └──────────┬──────────────────┘
-                   ▼
-        ┌─────────────────────────────┐
-        │ Embedding (MiniLM Model)    │
-        └──────────┬──────────────────┘
-                   ▼
-        ┌─────────────────────────────┐
-        │ FAISS Vector Store          │
-        └──────────┬──────────────────┘
-                   ▼
-        ┌─────────────────────────────┐
-        │ Query Embedding             │
-        └──────────┬──────────────────┘
-                   ▼
-        ┌─────────────────────────────┐
-        │ Top-K Semantic Retrieval    │
-        └──────────┬──────────────────┘
-                   ▼
-        ┌─────────────────────────────┐
-        │ Context Construction        │
-        └──────────┬──────────────────┘
-                   ▼
-        ┌─────────────────────────────┐
-        │ Groq LLM (Answer Generation)│
-        └──────────┬──────────────────┘
-                   ▼
-            📊 Final Answer + Citations
-
-## 📦 Libraries and Their Usage
-
-This project uses a combination of libraries for document processing, embedding generation, vector storage, LLM interaction, and UI development. Below is a component-wise breakdown:
+User Uploads Documents
+        │
+        ▼
+Document Loading & Metadata Normalization
+        │
+        ▼
+Text Chunking (Recursive)
+        │
+        ▼
+Embedding Generation (MiniLM Model)
+        │
+        ▼
+FAISS Vector Store
+        │
+        ▼
+Query Embedding
+        │
+        ▼
+Top-K Semantic Retrieval
+        │
+        ▼
+Context Construction
+        │
+        ▼
+Groq LLM Answer Generation
+        │
+        ▼
+Final Answer + Citations
+```
 
 ---
 
+## 📸 Application Workflow (Screenshots)
+
+All screenshots are stored in the `/screenshots` folder.
+
+### 🟢 1. Application Start
+
+![Start](screenshots/start.png)
+
+### 📂 2. Upload Documents
+
+![Upload](screenshots/save-uploaded-files.png)
+
+### 🔄 3. Refresh Vector Index
+
+![Refresh](screenshots/refresh-index.png)
+
+### 📊 4. Query & Answer Output
+
+![Output](screenshots/output.png)
+
+---
+
+## 📦 Libraries and Their Usage
+
 ### 📄 1. Document Loading & Preprocessing
 
-#### `langchain_community.document_loaders`
-- Provides ready-made loaders for multiple file formats
-- Used to ingest documents into a standardized format
+* `langchain_community.document_loaders` → Multi-format document ingestion
+* `PyPDFLoader` → PDF parsing
+* `TextLoader` → TXT files
+* `CSVLoader` → CSV data
+* `Docx2txtLoader` → Word documents
+* `JSONLoader` → JSON parsing
+* `UnstructuredExcelLoader` → Excel files
 
-#### Loaders Used:
-- `PyPDFLoader` → Loads and parses PDF files
-- `TextLoader` → Handles `.txt` files
-- `CSVLoader` → Loads structured CSV data
-- `Docx2txtLoader` → Extracts text from Word documents
-- `JSONLoader` → Parses JSON files into documents
-- `UnstructuredExcelLoader` → Processes `.xlsx` files
-
-📌 **Why used?**  
-To support multi-format document ingestion for real-world enterprise data.
+📌 Purpose: Handle real-world document formats
 
 ---
 
 ### ✂️ 2. Text Chunking
 
-#### `langchain_text_splitters`
-- Provides utilities to split large documents into smaller chunks
+* `langchain_text_splitters`
+* `RecursiveCharacterTextSplitter`
 
-#### `RecursiveCharacterTextSplitter`
-- Splits text into overlapping chunks
-- Maintains context across chunks
-
-📌 **Why used?**  
-LLMs and embedding models have token limits, so large documents must be broken into smaller, meaningful segments.
+📌 Purpose: Split large documents into manageable overlapping chunks
 
 ---
 
 ### 🧠 3. Embedding Generation
 
-#### `sentence_transformers`
-- Library for generating dense vector embeddings from text
+* `sentence_transformers`
+* `SentenceTransformer (all-MiniLM-L6-v2)`
+* `numpy`
 
-#### `SentenceTransformer`
-- Model used: `all-MiniLM-L6-v2`
-- Converts text into semantic vectors
-
-#### `numpy`
-- Used to store and manipulate embedding vectors
-
-📌 **Why used?**  
-To represent text semantically so similar content can be retrieved based on meaning, not keywords.
+📌 Purpose: Convert text into semantic vectors
 
 ---
 
-### 🗄️ 4. Vector Database (Storage & Retrieval)
+### 🗄️ 4. Vector Storage & Retrieval
 
-#### `faiss`
-- Facebook AI Similarity Search
-- High-performance vector search library
+* `faiss`
+* `pickle`
 
-#### `pickle`
-- Serializes metadata for persistent storage
-
-📌 **Why used?**  
-- Stores embeddings efficiently
-- Enables fast nearest-neighbor search for retrieval
-- Supports saving and loading index from disk
+📌 Purpose: Store embeddings and perform fast similarity search
 
 ---
 
 ### 🔍 5. Retrieval + LLM Integration
 
-#### `langchain_groq`
-- Integration layer for Groq LLM
+* `langchain_groq`
+* `ChatGroq`
+* `python-dotenv`
 
-#### `ChatGroq`
-- Used to interact with Groq-hosted models (e.g., LLaMA)
-
-#### `python-dotenv`
-- Loads environment variables from `.env` file
-
-📌 **Why used?**  
-- Retrieves relevant context
-- Sends structured prompts to LLM
-- Ensures secure API key management
+📌 Purpose: Generate answers using retrieved context and manage API keys securely
 
 ---
 
-### 🖥️ 6. Frontend (User Interface)
+### 🖥️ 6. Frontend (UI)
 
-#### `streamlit`
-- Framework for building interactive web apps in Python
+* `streamlit`
 
-📌 **Why used?**
-- Enables:
-  - File upload
-  - Query input
-  - Dynamic responses
-  - Visualization of results and citations
+📌 Purpose:
+
+* File uploads
+* Query interface
+* Display results with citations
 
 ---
 
-### ⚙️ 7. Core Python Libraries
+### ⚙️ 7. Core Python Utilities
 
-#### `os`
-- File handling and environment variable access
+* `os`, `sys`, `pathlib`, `typing`
 
-#### `sys`
-- Used for path management
-
-#### `pathlib`
-- Cleaner file path operations
-
-#### `typing`
-- Type annotations for better code clarity
-
-📌 **Why used?**  
-To improve code readability, maintainability, and structure.
+📌 Purpose: File handling, structure, and maintainability
 
 ---
 
 ## 🧠 Summary
 
-| Component            | Library Used                    | Purpose |
-|---------------------|--------------------------------|--------|
-| Document Loading     | LangChain Loaders              | Multi-format ingestion |
-| Chunking             | RecursiveCharacterTextSplitter | Text segmentation |
-| Embeddings           | Sentence Transformers          | Semantic representation |
-| Vector Storage       | FAISS                          | Fast similarity search |
-| LLM Integration      | Groq + LangChain               | Answer generation |
-| UI                   | Streamlit                      | User interaction |
-| Utilities            | NumPy, OS, Pathlib             | Data handling |
+| Component        | Library Used                   | Purpose                |
+| ---------------- | ------------------------------ | ---------------------- |
+| Document Loading | LangChain Loaders              | Multi-format ingestion |
+| Chunking         | RecursiveCharacterTextSplitter | Text segmentation      |
+| Embeddings       | Sentence Transformers          | Semantic understanding |
+| Vector Store     | FAISS                          | Fast retrieval         |
+| LLM              | Groq + LangChain               | Answer generation      |
+| UI               | Streamlit                      | User interaction       |
+| Utilities        | NumPy, OS, Pathlib             | Data handling          |
 
 ---
 
 ## 🚀 Why This Stack?
 
-This stack was chosen to:
-- Support **real-world document formats**
-- Enable **fast semantic search**
-- Ensure **low-latency LLM responses (Groq)**
-- Maintain **modular and scalable architecture**
-- Provide **interactive UI for usability**
+* Handles real-world documents
+* Enables fast semantic search
+* Uses low-latency Groq inference
+* Modular and scalable design
+* Simple and interactive UI
+
+---
+
+## 📁 Project Structure
+
+```text
+RAGGithub/
+│
+├── app.py
+├── README.md
+├── requirements.txt
+├── .env.example
+├── .gitignore
+│
+├── src/
+│   ├── data_loader.py
+│   ├── embedding.py
+│   ├── vectorstore.py
+│   └── search.py
+│
+├── data/
+│   └── .gitkeep
+│
+├── screenshots/
+│   ├── start.png
+│   ├── save-uploaded-files.png
+│   ├── refresh-index.png
+│   └── output.png
+```
+
+---
+
+## 🛠️ Setup Instructions
+
+```bash
+git clone https://github.com/abssinghal/RAGGithub.git
+cd RAGGithub
+
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+pip install -r requirements.txt
+
+# create .env file
+GROQ_API_KEY=your_api_key_here
+
+streamlit run app.py
+```
+
+---
+
+## 🧪 Example Query
+
+```
+What is LangServe used for?
+```
+
+---
+
+## 📌 Resume Description
+
+**Built a Groq-powered RAG document assistant using LangChain, FAISS, and Sentence Transformers to perform citation-based semantic search and question answering over multi-format internal documents via a Streamlit interface.**
+
+---
+
+## 👨‍💻 Author
+
+**Abhishek**
