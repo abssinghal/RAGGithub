@@ -84,11 +84,11 @@ All screenshots are stored in the `/screenshots` folder.
 
 ![Refresh](screenshots/Manual%20Refresh%20of%20Vectors.png)
 
-![Refresh](screenshots/Manual%20Refresh%20Vectors%20Index.png)
+![Refresh Index](screenshots/Manual%20Refresh%20Vectors%20Index.png)
 
 ### 📊 4. Query & Answer Output
 
-![Output](screenshots/Output.pdf)
+[View Output](screenshots/Output.pdf)
 
 ---
 
