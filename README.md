@@ -74,19 +74,19 @@ All screenshots are stored in the `/screenshots` folder.
 
 ### 🟢 1. Application Start
 
-![Start](screenshots/start.png)
+![Start](screenshots/Start.png)
 
 ### 📂 2. Upload Documents
 
-![Upload](screenshots/save-uploaded-files.png)
+![Upload](screenshots/save-1-more-file.png)
 
 ### 🔄 3. Refresh Vector Index
 
-![Refresh](screenshots/refresh-index.png)
+![Refresh](screenshots/Manual-Refresh-Vector-Index.png)
 
 ### 📊 4. Query & Answer Output
 
-![Output](screenshots/output.png)
+![Output](screenshots/output.pdf)
 
 ---
 
