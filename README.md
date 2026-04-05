@@ -1,3 +1,79 @@
+# 🧠 Groq-Powered Internal RAG Document Assistant
+
+A production-style **Retrieval-Augmented Generation (RAG)** system that enables semantic search and question answering over internal documents using **FAISS, Sentence Transformers, and Groq LLM**, delivered through an interactive **Streamlit UI**.
+
+---
+
+## 🚀 Overview
+
+This project implements an end-to-end **RAG pipeline** that allows users to:
+
+- Upload internal documents (PDF, DOCX, CSV, etc.)
+- Automatically process and chunk content
+- Generate embeddings for semantic understanding
+- Store and query vectors using FAISS
+- Ask natural language questions
+- Receive **context-grounded answers with citations**
+
+The system ensures that responses are generated **only from retrieved context**, reducing hallucinations and improving reliability.
+
+---
+
+## 🧩 Problem Statement
+
+Organizations often store large volumes of unstructured data across multiple file formats. Extracting relevant insights manually is:
+
+- Time-consuming
+- Inefficient
+- Error-prone
+
+This project solves that by enabling:
+
+> ⚡ Fast, accurate, and explainable question-answering over internal documents.
+
+---
+
+## 🏗️ Architecture
+
+```text
+            ┌──────────────────────┐
+            │  User Uploads Files  │
+            └──────────┬───────────┘
+                       ▼
+        ┌─────────────────────────────┐
+        │ Document Loader (Multi-type)│
+        └──────────┬──────────────────┘
+                   ▼
+        ┌─────────────────────────────┐
+        │ Text Chunking (Recursive)   │
+        └──────────┬──────────────────┘
+                   ▼
+        ┌─────────────────────────────┐
+        │ Embedding (MiniLM Model)    │
+        └──────────┬──────────────────┘
+                   ▼
+        ┌─────────────────────────────┐
+        │ FAISS Vector Store          │
+        └──────────┬──────────────────┘
+                   ▼
+        ┌─────────────────────────────┐
+        │ Query Embedding             │
+        └──────────┬──────────────────┘
+                   ▼
+        ┌─────────────────────────────┐
+        │ Top-K Semantic Retrieval    │
+        └──────────┬──────────────────┘
+                   ▼
+        ┌─────────────────────────────┐
+        │ Context Construction        │
+        └──────────┬──────────────────┘
+                   ▼
+        ┌─────────────────────────────┐
+        │ Groq LLM (Answer Generation)│
+        └──────────┬──────────────────┘
+                   ▼
+            📊 Final Answer + Citations
+
 ## 📦 Libraries and Their Usage
 
 This project uses a combination of libraries for document processing, embedding generation, vector storage, LLM interaction, and UI development. Below is a component-wise breakdown:
