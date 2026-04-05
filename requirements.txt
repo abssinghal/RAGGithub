@@ -1,0 +1,55 @@
+# Recommended target runtime: Python 3.10 or 3.11
+# Built from import analysis across:
+# - app.py
+# - src/*.py
+# - 1-rag_evaluation.ipynb
+# - agenticrag/1-agenticrag.ipynb
+# - notebook/*.ipynb
+# - typesense.ipynb
+#
+# These pins stay on the pre-1.0 LangChain line because the project mixes
+# older import paths (langchain.document_loaders, langchain.embeddings,
+# langchain.schema) with newer split packages (langchain-community,
+# langchain-openai, langchain-groq, langgraph).
+
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-openai
+langchain-groq
+langgraph
+langsmith
+
+openai
+python-dotenv
+typing-extensions
+
+sentence-transformers
+faiss-cpu
+chromadb
+typesense
+numpy
+scikit-learn
+
+pypdf
+pymupdf
+beautifulsoup4
+lxml
+
+# Document loaders used in src/data_loader.py
+python-docx
+docx2txt
+unstructured
+openpyxl
+jq
+
+# Common utility packages sometimes needed indirectly by notebook flows
+pandas
+sentence_transformers
+faiss-cpu
+langchain_community
+langchain
+langchain-text-splitters
+langchain-groq
+pypdf

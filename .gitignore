@@ -1,0 +1,13 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.env
+faiss_store/
+*.index
+*.pkl
+.vscode/
+.ipynb_checkpoints/
+data/*
+!data/.gitkeep
+*.zip
