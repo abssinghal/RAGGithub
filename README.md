@@ -78,15 +78,16 @@ All screenshots are stored in the `/screenshots` folder.
 
 ### 📂 2. Upload Documents
 
-![Upload].(https://github.com/abssinghal/RAGGithub/blob/42fb412af0377c3bd7c0e5aa3b732f339d911ecc/screenshots/Saved%201%20more%20file.png)
+![Upload].(screenshots/Saved%201%20more%20file.png)
 
 ### 🔄 3. Refresh Vector Index
 
-![Refresh].(https://github.com/abssinghal/RAGGithub/blob/42fb412af0377c3bd7c0e5aa3b732f339d911ecc/screenshots/Manual%20Refresh%20Vector%20Index.png))
+![Refresh].(screenshots/Manual%20Refresh%20of%20Vectors.png)
+![Refresh].(screenshots/Manual%20Refresh%20Vectors%20Index.png)
 
 ### 📊 4. Query & Answer Output
 
-![Output](https://github.com/abssinghal/RAGGithub/blob/42fb412af0377c3bd7c0e5aa3b732f339d911ecc/screenshots/Saved%201%20more%20file.png)
+![Output](screenshots/Output.pdf)
 
 ---
 
