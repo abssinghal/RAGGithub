@@ -80,9 +80,11 @@ All screenshots are stored in the `/screenshots` folder.
 
 ![Upload](screenshots/Saved%201%20more%20file.png)
 
-### 🔄 3. Refresh Vector Index
+### 🔄 3. Refresh Vector Index Command Prompt
 
 ![Refresh](screenshots/Manual%20Refresh%20of%20Vectors.png)
+
+### 🔄 3. Refresh Vector Index
 
 ![Refresh Index](screenshots/Manual%20Refresh%20Vectors%20Index.png)
 
